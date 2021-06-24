@@ -168,11 +168,33 @@ public class DataRetrieve {
 		      coinsCirculatingArr.addAll(coins);
 		      coinsMarketCapArr.sort(new MarketCapSorter());
 		      coinsCirculatingArr.sort(new CirculatingSorter());
+		      double circulatingBaseline = 0;
+		      double marketCapBaseline = 0;
 		      for(int i = 0; i < coins.size(); i++) {
 		    	  System.out.println(i + " " + coins.get(i).getSymbol());
 		      }
 		      for(int i = 0; i < coinsMarketCapArr.size(); i++) {
 		    	  System.out.println(coinsMarketCapArr.get(i).getSymbol() + " " + coinsMarketCapArr.get(i).getMarket_cap());
+		    	  if(i == coinsMarketCapArr.size()/2) {
+		    		  marketCapBaseline = coinsMarketCapArr.get(i).getCirculating_supply();
+		    	  }
+		      }
+		      
+		      for(int i = 0; i < coinsCirculatingArr.size(); i++) {
+		    	  System.out.println(coinsCirculatingArr.get(i).getSymbol() + " " + coinsCirculatingArr.get(i).getCirculating_supply());
+		    	  if(i == coinsCirculatingArr.size()/10) {
+		    		  circulatingBaseline = coinsCirculatingArr.get(i).getCirculating_supply();
+		    	  }
+		      }
+		      
+		      System.out.println("Market Cap Baseline: " + marketCapBaseline + " || Circulating Cap Baseline: " + circulatingBaseline);
+		      for(int i = 0; i < coinsCirculatingArr.size(); i++) {  
+		    	  if(coinsCirculatingArr.get(i).getCirculating_supply() < circulatingBaseline & coinsCirculatingArr.get(i).getMarket_cap() < marketCapBaseline) {
+		    		  System.out.println(coinsCirculatingArr.get(i).getSymbol()  + " || Market Cap: " +
+		    				  	coinsCirculatingArr.get(i).getMarket_cap() +" ||Circulating: " + 
+		    				  	coinsCirculatingArr.get(i).getCirculating_supply());
+		    		  
+		    	  }
 		      }
 		      //Organize coins by market cap
 		      //coinsMarketCapArr.sort()
